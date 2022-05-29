@@ -1,0 +1,7 @@
+git clone https://github.com/cchafe/ssr.git
+cd ssr
+git submodule update --init
+./autogen.sh 
+./configure 
+gedit Makefile & << from subdirs, remove man
+make
