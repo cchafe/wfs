@@ -1,0 +1,79 @@
+    1  dnf upgrade
+    2  reboot
+    3  dnf install evolution
+    4  dnf install gedit
+    5  gedit /etc/default/grub
+    6  grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg 
+    7  dmesg | grep -i preempt
+    8  reboot
+    9  dmesg | grep -i preempt
+   10  dnf list hp*
+   11  dnf install hplip-gui
+   12  history > xxx
+   13  dnf install qt5-devel
+   14  dnf groupinstall "C Development Tools and Libraries"
+   15  dnf groupinstall "Development Tools"
+   16  dnf list qt5*
+   17  dnf install qt5-*-devel
+   18  dnf groupinstall "C Development Tools and Libraries"
+   19  dnf groupinstall "Development Tools"
+   20  dnf install "pkgconfig(jack)" alsa-lib-devel git help2man
+   21  dnf list *creator*
+   22  dnf install qt-creator
+   23  dnf install qjackctl
+   24  gpasswd -a cc audio 
+   25  groupadd realtime
+   26  gpasswd -a cc realtime 
+   27  echo "@realtime   -  rtprio     99" > /etc/security/limits.d/99-realtime.conf
+   28  echo "@realtime   -  memlock    unlimited" >> /etc/security/limits.d/99-realtime.conf
+   29  dnf list *xml2*
+   30  dnf install fftw3-devel
+   31  find /usr -name GL
+   32  ls /usr/include/GL
+   33  dnf list *asio*
+   34  dnf install asio-devel
+   35  dnf list *ketpp*
+   36  dnf install websocketpp-devel
+   37  dnf list *fmt*
+   38  dnf install fmt-devel
+   39  dnf list *sofa*
+   40  dnf install libmysofa-devel
+   41  dnf list *vrpn*
+   42  dnf list *sndfile*
+   43  dnf install libsndfile-devel
+   44  dnf list *xml*
+   45  dnf list *xml*
+   46  dnf install libxml2-devel
+   47  dnf install qt5-qtbase-doc qt5-qtbase-examples
+   48  dnf list *mesa*
+   49  dnf list *mesa*
+   50  dnf install mesa-
+   51  dnf list *eca*
+   52  dnf list *ecas*
+   53  dnf provides ecasound
+   54  dnf install zoom_x86_64.rpm
+   55  dnf install jacktrip
+   56  dnf list pulsea*
+   57  dnf install pulseaudio
+   58  dnf upgrade
+   59  ./jack-ify.sh 
+   60  reboot
+   61  dnf install jinja2
+   62  dnf list jinja*
+   63  dnf install python-jinja2
+   64  dnf upgrade
+   65  dnf install ecasound
+   66  dnf install ecasound-devel
+   67  rpm -Uvh http://ccrma.stanford.edu/planetccrma/mirror/fedora/linux/planetccrma/30/x86_64/planetccrma-repo-1.1-3.fc35.ccrma.noarch.rpm
+   68  rpm -Uvh http://ccrma.stanford.edu/planetccrma/mirror/fedora/linux/planetccrma/35/x86_64/planetccrma-repo-1.1-3.fc35.ccrma.noarch.rpm
+   69  dnf install ecasound-devel
+   70  dnf install ecasound
+   71  dnf list ecasound-devel
+   72  dnf provides ecasound-devel
+   73  dnf repoquery -l ecasound-devel
+   74  dnf repoquery -l ecasound-devel | grep eca-
+   75  dnf provides ecasoundc
+   76  dnf list ecasoundc*
+   77  dnf list libecasoundc*
+   78  dnf install libecasoundc
+   79  history > /tmp/yyy
