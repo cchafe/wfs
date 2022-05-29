@@ -1,7 +1,10 @@
 git clone https://github.com/cchafe/ssr.git
+(has my mod to server.cpp)
 cd ssr
 git submodule update --init
 ./autogen.sh 
 ./configure 
-gedit Makefile & << from subdirs, remove man
+gedit Makefile & 
+(find subdirs, remove man)
 make
+make install
