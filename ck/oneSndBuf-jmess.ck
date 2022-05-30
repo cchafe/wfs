@@ -22,15 +22,15 @@ snd2.gain(0.6);
 1::second => now;
 Std.system("jmess -c ../jmess/binOneSrc.xml");
 while (true)
-for (0=>int i; i<1000; i++) {
+for (0=>int i; i<100; i++) {
 // <request><source id="42"><position x="1.2" y="-2"/></source></request>
-  i*0.003 => float x;
+  i*0.03 => float x;
   1.5 -=> x;
   5*0.3 => float y;
   "<request> <source id=\"1\" > <position x=\""+x+"\" y=\""+y+"\"/> </source> </request>" 
     => blob;
-  Std.system("echo '"+blob+"' | nc localhost 5000 &> /dev/null &");
-  10::ms => now;
+  Std.system("echo '"+blob+"' | nc localhost 4000 &> /dev/null &");
+  100::ms => now;
 }
 
 // ecasound -i BongosKongas.c1.wav -o jack_multi,system:playback_1
