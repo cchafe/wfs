@@ -1,11 +1,11 @@
 /*----------------------------------------------------------------------------
- ChucK MagicSine Unit Generator
+ ChucK ssr Unit Generator
  
  Implements efficient sine oscillator using the iterative "magic circle" 
  algorithm, at the expensive of not being able to set the phase (for now at 
  least). Uses 4 multiplies + 2 adds per sample. 
  
- MagicSine is about 25% faster when running a fixed freq sine wave, so its 
+ ssr is about 25% faster when running a fixed freq sine wave, so its 
  main use is when you need a lot of sine waves and are hitting a performance
  bottleneck. 
  
@@ -35,22 +35,22 @@
 #include <math.h>
 
 
-CK_DLL_CTOR(MagicSine_ctor);
-CK_DLL_DTOR(MagicSine_dtor);
+CK_DLL_CTOR(ssr_ctor);
+CK_DLL_DTOR(ssr_dtor);
 
-CK_DLL_MFUN(MagicSine_setFreq);
-CK_DLL_MFUN(MagicSine_getFreq);
+CK_DLL_MFUN(ssr_setFreq);
+CK_DLL_MFUN(ssr_getFreq);
 
-CK_DLL_TICK(MagicSine_tick);
+CK_DLL_TICK(ssr_tick);
 
-t_CKINT MagicSine_data_offset = 0;
+t_CKINT ssr_data_offset = 0;
 
 
-class MagicSine
+class ssr
 {
 public:
     
-    MagicSine(float fs)
+    ssr(float fs)
     {
         m_fs = fs;
         setFreq(1440);
@@ -83,28 +83,28 @@ private:
     t_CKFLOAT m_epsilon;
 };
 
-CK_DLL_QUERY(MagicSine)
+CK_DLL_QUERY(ssr)
 {
-    QUERY->setname(QUERY, "MagicSine");
+    QUERY->setname(QUERY, "ssr");
     
-    QUERY->begin_class(QUERY, "MagicSine", "UGen");
+    QUERY->begin_class(QUERY, "ssr", "UGen");
     QUERY->doc_class(QUERY, "Fast, recursive sine wave generator using the so-called &quot;magic circle&quot; algorithm (see <a href=\"https://ccrma.stanford.edu/~jos/pasp/Digital_Sinusoid_Generators.html\">https://ccrma.stanford.edu/~jos/pasp/Digital_Sinusoid_Generators.html</a>). "
         "Can be 30-40% faster than regular SinOsc. "
         "Frequency modulation will negate this performance benefit; most useful when pure sine tones are desired or for additive synthesis. ");
     
-    QUERY->add_ctor(QUERY, MagicSine_ctor);
-    QUERY->add_dtor(QUERY, MagicSine_dtor);
+    QUERY->add_ctor(QUERY, ssr_ctor);
+    QUERY->add_dtor(QUERY, ssr_dtor);
     
-    QUERY->add_ugen_func(QUERY, MagicSine_tick, NULL, 1, 1);
+    QUERY->add_ugen_func(QUERY, ssr_tick, NULL, 1, 1);
     
-    QUERY->add_mfun(QUERY, MagicSine_setFreq, "float", "freq");
+    QUERY->add_mfun(QUERY, ssr_setFreq, "float", "freq");
     QUERY->add_arg(QUERY, "float", "arg");
     QUERY->doc_func(QUERY, "Oscillator frequency [Hz]. ");
     
-    QUERY->add_mfun(QUERY, MagicSine_getFreq, "float", "freq");
+    QUERY->add_mfun(QUERY, ssr_getFreq, "float", "freq");
     QUERY->doc_func(QUERY, "Oscillator frequency [Hz]. ");
     
-    MagicSine_data_offset = QUERY->add_mvar(QUERY, "int", "@MagicSine_data", false);
+    ssr_data_offset = QUERY->add_mvar(QUERY, "int", "@ssr_data", false);
     
     QUERY->end_class(QUERY);
 
@@ -112,45 +112,45 @@ CK_DLL_QUERY(MagicSine)
 }
 
 
-CK_DLL_CTOR(MagicSine_ctor)
+CK_DLL_CTOR(ssr_ctor)
 {
-    OBJ_MEMBER_INT(SELF, MagicSine_data_offset) = 0;
+    OBJ_MEMBER_INT(SELF, ssr_data_offset) = 0;
     
-    MagicSine * bcdata = new MagicSine(API->vm->get_srate(API, SHRED));
+    ssr * bcdata = new ssr(API->vm->get_srate(API, SHRED));
     
-    OBJ_MEMBER_INT(SELF, MagicSine_data_offset) = (t_CKINT) bcdata;
+    OBJ_MEMBER_INT(SELF, ssr_data_offset) = (t_CKINT) bcdata;
 }
 
-CK_DLL_DTOR(MagicSine_dtor)
+CK_DLL_DTOR(ssr_dtor)
 {
-    MagicSine * bcdata = (MagicSine *) OBJ_MEMBER_INT(SELF, MagicSine_data_offset);
+    ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
     if(bcdata)
     {
         delete bcdata;
-        OBJ_MEMBER_INT(SELF, MagicSine_data_offset) = 0;
+        OBJ_MEMBER_INT(SELF, ssr_data_offset) = 0;
         bcdata = NULL;
     }
 }
 
-CK_DLL_TICK(MagicSine_tick)
+CK_DLL_TICK(ssr_tick)
 {
-    MagicSine * c = (MagicSine *) OBJ_MEMBER_INT(SELF, MagicSine_data_offset);
+    ssr * c = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
     
     if(c) *out = c->tick(in);
 
     return TRUE;
 }
 
-CK_DLL_MFUN(MagicSine_setFreq)
+CK_DLL_MFUN(ssr_setFreq)
 {
-    MagicSine * bcdata = (MagicSine *) OBJ_MEMBER_INT(SELF, MagicSine_data_offset);
+    ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
     // TODO: sanity check
     RETURN->v_float = bcdata->setFreq(GET_NEXT_FLOAT(ARGS));
 }
 
-CK_DLL_MFUN(MagicSine_getFreq)
+CK_DLL_MFUN(ssr_getFreq)
 {
-    MagicSine * bcdata = (MagicSine *) OBJ_MEMBER_INT(SELF, MagicSine_data_offset);
+    ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
     RETURN->v_float = bcdata->getFreq();
 }
 
