@@ -9,3 +9,9 @@ gedit Makefile &
 (find subdirs, remove man)
 make
 make install
+
+/////////////////////////
+
+ssr is finicky about directories -- likes flat, so put everything in run, .wav, .sh, .asd, ... 
+cd run
+./goBin.sh
