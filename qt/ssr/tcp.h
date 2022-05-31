@@ -10,7 +10,8 @@ class TCP : QObject
 public:
     explicit TCP();
     ~TCP();
-void connectToHost();
+    void connectToHost();
+    void sendToHost();
 QTcpSocket * socket;
     void connected();
     void disconnected();

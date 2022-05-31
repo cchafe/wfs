@@ -15,6 +15,25 @@ void TCP::connectToHost()
     socket->connectToHost(QString("127.0.0.1"),5000);
 }
 
+void TCP::sendToHost()
+{
+    int i = 0;
+    double x = 0.1;
+    double y = 0.1;
+    QString request("<request><source id=\""+QString::number(i+1)+
+                    "\"><position x=\""+QString::number(x)+
+                    "\" y=\""+QString::number(y)+
+                    "\"/></source></request>" );
+    //        qDebug() << request;
+    QByteArray ba;
+    ba.append(request);
+    ba.append('\n');
+    socket->write(ba);
+    socket->waitForBytesWritten(1000);
+    socket->waitForReadyRead(3000);
+    fprintf(stderr,"wrote :%s\n",request.toLocal8Bit().data());
+}
+
 void TCP::readyRead()
 {
     quint16 bytes =  socket->bytesAvailable();

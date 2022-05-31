@@ -1,4 +1,4 @@
-// chuck  --channels:3 oneSndBuf-jmess.ck
+// chuck  --channels:3 --caution-to-the-wind oneSndBuf-jmess.ck
 
 "<request> <source new=\"true\" name=\"ps2\" port=\"2\" > <position x=\"1\" y=\"1\"/> </source> </request>" => string blob;
 Std.system("echo '"+blob+"' | nc localhost 5000");
@@ -29,7 +29,8 @@ for (0=>int i; i<100; i++) {
   5*0.3 => float y;
   "<request> <source id=\"1\" > <position x=\""+x+"\" y=\""+y+"\"/> </source> </request>" 
     => blob;
-  Std.system("echo '"+blob+"' | nc localhost 4000 &> /dev/null &");
+    <<<blob>>>;
+  Std.system("echo '"+blob+"' | nc localhost 5000 &> /dev/null &");
   100::ms => now;
 }
 

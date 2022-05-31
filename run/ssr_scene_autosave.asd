@@ -8,7 +8,17 @@
     </reference>
     <source name="ps1" model="point" mute="false" volume="0">
       <port>1</port>
-      <position x="2" y="2"/>
+      <position x="-1.2" y="1.5"/>
+      <orientation azimuth="-51.3402"/>
+    </source>
+    <source name="ps2" model="point" mute="false" volume="0">
+      <port>2</port>
+      <position x="1" y="1"/>
+      <orientation azimuth="0"/>
+    </source>
+    <source name="ps2" model="point" mute="false" volume="0">
+      <port>2</port>
+      <position x="1" y="1"/>
       <orientation azimuth="0"/>
     </source>
   </scene_setup>

@@ -68,6 +68,8 @@ public:
             tcp->connected();
         else
             tcp->disconnected();
+        tcp->sendToHost();
+
         return tcp->socket->state(); }
 
 private:
