@@ -4,17 +4,6 @@ TCP::TCP()
 {
     socket = new QTcpSocket(this);
     fprintf(stderr,"new QTcpSocket\n");
-//    connect( socket,SIGNAL(connected()),this,SLOT(connected()));
-//    connect( socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
-//    connect( socket,SIGNAL(error(QAbstractSocket::SocketError)),
-//             this,SLOT(error(QAbstractSocket::SocketError)));
-//    connect( socket,SIGNAL(hostFound()),this,SLOT(hostFound()));
-//    connect( socket,SIGNAL(bytesWritten(qint64)),this,SLOT(bytesWritten(qint64)));
-//    connect( socket,SIGNAL(readyRead()),this,SLOT(readyRead()));
-    connectToHost();
-    if (socket->waitForConnected(1000))
-        fprintf(stderr,"Connected to server\n");
-
 }
 
 TCP::~TCP()

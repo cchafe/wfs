@@ -1,30 +1,5 @@
 /*----------------------------------------------------------------------------
- ChucK ssr Unit Generator
- 
- Implements efficient sine oscillator using the iterative "magic circle" 
- algorithm, at the expensive of not being able to set the phase (for now at 
- least). Uses 4 multiplies + 2 adds per sample. 
- 
- ssr is about 25% faster when running a fixed freq sine wave, so its 
- main use is when you need a lot of sine waves and are hitting a performance
- bottleneck. 
- 
- Copyright (c) 2012 Spencer Salazar.  All rights reserved.
- 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
- U.S.A.
+ ChucK to ssr
  -----------------------------------------------------------------------------*/
 
 #include "chuck_dl.h"
@@ -40,9 +15,10 @@ CK_DLL_DTOR(ssr_dtor);
 
 CK_DLL_MFUN(ssr_setFreq);
 CK_DLL_MFUN(ssr_getFreq);
-CK_DLL_MFUN(ssr_checkFreq);
+CK_DLL_MFUN(ssr_checkConnection);
 
 CK_DLL_TICK(ssr_tick);
+CK_DLL_MFUN(ssr_connect);
 
 t_CKINT ssr_data_offset = 0;
 
@@ -60,7 +36,15 @@ public:
         m_y = 0;
         tcp = new TCP();
     }
-    
+
+    t_CKFLOAT connect()
+    {
+      tcp->connectToHost();
+      if (tcp->socket->waitForConnected(1000))
+        fprintf(stderr,"Connected to server\n");
+      return(0.0);
+    }
+
     SAMPLE tick(SAMPLE in)
     {
         m_x = m_x + m_epsilon*m_y;
@@ -76,9 +60,10 @@ public:
     }
 
     t_CKFLOAT getFreq() {
-        return m_freq; }
+        return m_freq;
+    }
 
-    t_CKFLOAT checkFreq() {
+    t_CKFLOAT checkConnection() {
         if (tcp->socket->state() == QTcpSocket::ConnectedState)
             tcp->connected();
         else
@@ -114,8 +99,10 @@ CK_DLL_QUERY(ssr)
     QUERY->add_mfun(QUERY, ssr_getFreq, "float", "freq");
     QUERY->doc_func(QUERY, "Oscillator frequency [Hz]. ");
 
-    QUERY->add_mfun(QUERY, ssr_checkFreq, "float", "checkFreq");
+    QUERY->add_mfun(QUERY, ssr_checkConnection, "float", "checkConnection");
     QUERY->doc_func(QUERY, "Oscillator frequency again[Hz]. ");
+
+    QUERY->add_mfun(QUERY, ssr_connect, "void", "connect");
 
     ssr_data_offset = QUERY->add_mvar(QUERY, "int", "@ssr_data", false);
     
@@ -167,9 +154,15 @@ CK_DLL_MFUN(ssr_getFreq)
     RETURN->v_float = bcdata->getFreq();
 }
 
-CK_DLL_MFUN(ssr_checkFreq)
+CK_DLL_MFUN(ssr_checkConnection)
 {
     ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
-    RETURN->v_float = bcdata->checkFreq();
+    RETURN->v_float = bcdata->checkConnection();
 }
 
+
+CK_DLL_MFUN(ssr_connect)
+{
+    ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
+    RETURN->v_float = bcdata->connect();
+}
