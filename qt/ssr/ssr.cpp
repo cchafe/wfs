@@ -64,13 +64,17 @@ public:
     }
 
     t_CKFLOAT checkConnection() {
-        if (tcp->socket->state() == QTcpSocket::ConnectedState)
-            tcp->connected();
-        else
-            tcp->disconnected();
-        tcp->sendToHost();
+//        if (tcp->socket->state() == QTcpSocket::ConnectedState)
+//            tcp->connected();
+//        else
+//            tcp->disconnected();
+        double x = m_x - 1.0;
+        x *= 10000000.0;
+        tcp->sendToHost(x, 2.0);
 
-        return tcp->socket->state(); }
+//        return tcp->socket->state();
+        return x;
+    }
 
 private:
 TCP * tcp;

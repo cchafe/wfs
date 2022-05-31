@@ -5,9 +5,11 @@ dac.gain(0.05);
 s.connect();
 1::second => now;
 
-s.freq(1500.0);
+s.freq(100.0);
 <<<s.freq()>>>;
-1::second => now;
 
-<<<s.checkConnection()>>>;
+while (true) {
+  10::ms => now;
+  <<<s.checkConnection()>>>;
+}
 1::hour => now;

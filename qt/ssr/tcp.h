@@ -11,7 +11,7 @@ public:
     explicit TCP();
     ~TCP();
     void connectToHost();
-    void sendToHost();
+    void sendToHost(double x, double y);
 QTcpSocket * socket;
     void connected();
     void disconnected();
