@@ -2,5 +2,9 @@
 
 ssr s => dac;
 dac.gain(0.05);
-//s.freq(1000.0);
+1::second => now;
+s.freq(1500.0);
+<<<s.freq()>>>;
+1::second => now;
+<<<s.checkFreq()>>>;
 1::hour => now;

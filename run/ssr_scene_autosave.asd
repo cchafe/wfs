@@ -11,10 +11,5 @@
       <position x="2" y="2"/>
       <orientation azimuth="0"/>
     </source>
-    <source name="ps2" model="point" mute="false" volume="0">
-      <port>2</port>
-      <position x="1" y="1"/>
-      <orientation azimuth="0"/>
-    </source>
   </scene_setup>
 </asdf>

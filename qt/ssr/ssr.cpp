@@ -33,13 +33,14 @@
 #include <stdio.h>
 #include <limits.h>
 #include <math.h>
-
+#include "tcp.h"
 
 CK_DLL_CTOR(ssr_ctor);
 CK_DLL_DTOR(ssr_dtor);
 
 CK_DLL_MFUN(ssr_setFreq);
 CK_DLL_MFUN(ssr_getFreq);
+CK_DLL_MFUN(ssr_checkFreq);
 
 CK_DLL_TICK(ssr_tick);
 
@@ -57,6 +58,7 @@ public:
         fprintf(stderr,"xxxxxxxxxxxxxxxxxx  %g\n",fs);
         m_x = 1;
         m_y = 0;
+        tcp = new TCP();
     }
     
     SAMPLE tick(SAMPLE in)
@@ -72,11 +74,19 @@ public:
         m_epsilon = 2.0*sin(2.0*ONE_PI*(m_freq/m_fs)/2.0);
         return m_freq;
     }
-    
-    t_CKFLOAT getFreq() { return m_freq; }
-    
+
+    t_CKFLOAT getFreq() {
+        return m_freq; }
+
+    t_CKFLOAT checkFreq() {
+        if (tcp->socket->state() == QTcpSocket::ConnectedState)
+            tcp->connected();
+        else
+            tcp->disconnected();
+        return tcp->socket->state(); }
+
 private:
-    
+TCP * tcp;
     SAMPLE m_x, m_y;
     t_CKFLOAT m_fs;
     t_CKFLOAT m_freq;
@@ -100,10 +110,13 @@ CK_DLL_QUERY(ssr)
     QUERY->add_mfun(QUERY, ssr_setFreq, "float", "freq");
     QUERY->add_arg(QUERY, "float", "arg");
     QUERY->doc_func(QUERY, "Oscillator frequency [Hz]. ");
-    
+
     QUERY->add_mfun(QUERY, ssr_getFreq, "float", "freq");
     QUERY->doc_func(QUERY, "Oscillator frequency [Hz]. ");
-    
+
+    QUERY->add_mfun(QUERY, ssr_checkFreq, "float", "checkFreq");
+    QUERY->doc_func(QUERY, "Oscillator frequency again[Hz]. ");
+
     ssr_data_offset = QUERY->add_mvar(QUERY, "int", "@ssr_data", false);
     
     QUERY->end_class(QUERY);
@@ -152,5 +165,11 @@ CK_DLL_MFUN(ssr_getFreq)
 {
     ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
     RETURN->v_float = bcdata->getFreq();
+}
+
+CK_DLL_MFUN(ssr_checkFreq)
+{
+    ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
+    RETURN->v_float = bcdata->checkFreq();
 }
 
