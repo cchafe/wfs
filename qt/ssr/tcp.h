@@ -12,6 +12,8 @@ public:
     ~TCP();
     void connectToHost();
     void sendToHost(double x, double y);
+    void addSrc(int i, double x, double y);
+    void mvSrc(int i, double x, double y, double z);
 QTcpSocket * socket;
     void connected();
     void disconnected();

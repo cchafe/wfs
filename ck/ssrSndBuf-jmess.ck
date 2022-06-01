@@ -11,10 +11,10 @@ Std.system("jmess -D");
 SndBuf snd => dac.chan(0);
 snd.read("../wav/BongosKongas.mono.wav");
 //snd.pos((38::second/samp)$int);
-snd.gain(0.0);
-SinOsc tri => dac.chan(0);
-tri.freq(1000.0);
-tri.gain(0.1);
+snd.gain(1.0);
+//SinOsc tri => dac.chan(0);
+//tri.freq(1000.0);
+//tri.gain(0.1);
 
 
 SndBuf snd1 => dac.chan(1);
@@ -37,7 +37,7 @@ for (0=>int i; i<100; i++) {
   5*0.3 => float y;
 //  Std.system("echo '"+blob+"' | nc localhost 5000 &> /dev/null &");
   s.checkConnection();
-  150::ms => now;
+  10::ms => now;
 }
 
 // ecasound -i BongosKongas.c1.wav -o jack_multi,system:playback_1

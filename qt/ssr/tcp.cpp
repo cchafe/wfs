@@ -27,7 +27,41 @@ void TCP::sendToHost(double x, double y)
     ba.append('\n');
     socket->write(ba);
     socket->waitForBytesWritten(1000);
-    socket->waitForReadyRead(3000);
+//    socket->waitForReadyRead(3000);
+//    fprintf(stderr,"wrote :%s\n",request.toLocal8Bit().data());
+}
+
+// Error: Either file name or port name must be specified! (legacy_network/commandparser.cpp:239)
+// so using BinauralRenderer:in_<n>
+
+void TCP::addSrc(int i, double x, double y)
+{
+    QString request("<request><source new=\"true\" name=\"src"+QString::number(i)+
+                    "\" port=\"BinauralRenderer:in_"+QString::number(i)+
+                    "\" ><position x=\""+QString::number(x)+
+                    "\" y=\""+QString::number(y)+
+                    "\"/></source></request>" );
+    QByteArray ba;
+    ba.append(request);
+    ba.append('\n');
+    socket->write(ba);
+    socket->waitForBytesWritten(1000);
+//    socket->waitForReadyRead(3000);
+    fprintf(stderr,"wrote :%s\n",request.toLocal8Bit().data());
+}
+
+void TCP::mvSrc(int i, double x, double y, double z)
+{
+    QString request("<request><source id=\""+QString::number(i+1)+
+                    "\"><position x=\""+QString::number(x)+
+                    "\" y=\""+QString::number(y)+
+                    "\"/></source></request>" );
+    QByteArray ba;
+    ba.append(request);
+    ba.append('\n');
+    socket->write(ba);
+    socket->waitForBytesWritten(1000);
+//    socket->waitForReadyRead(3000);
 //    fprintf(stderr,"wrote :%s\n",request.toLocal8Bit().data());
 }
 

@@ -14,6 +14,9 @@ CK_DLL_CTOR(ssr_ctor);
 CK_DLL_DTOR(ssr_dtor);
 
 CK_DLL_MFUN(ssr_setFreq);
+CK_DLL_MFUN(ssr_addSrc);
+CK_DLL_MFUN(ssr_mvSrc);
+CK_DLL_MFUN(ssr_mvSrcV);
 CK_DLL_MFUN(ssr_getFreq);
 CK_DLL_MFUN(ssr_checkConnection);
 
@@ -76,6 +79,26 @@ public:
         return x;
     }
 
+    t_CKFLOAT addSrc(t_CKFLOAT i) {
+        tcp->addSrc((int)i,0.0, 2.0);
+        return 0.0;
+    }
+
+    t_CKFLOAT mvSrc(t_CKFLOAT i) {
+        double x = m_x - 1.0;
+        x *= 10000000.0;
+        tcp->mvSrc((int)i, x, 2.0, 2.0);
+        return 0.0;
+    }
+
+    t_CKFLOAT mvSrcV(t_CKVEC4 v) {
+        v.x = m_x - 1.0;
+        v.x *= 10000000.0;
+        int i = (int)v.w;
+        tcp->mvSrc(i, v.x, v.y, v.z);
+        return 0.0;
+    }
+
 private:
 TCP * tcp;
     SAMPLE m_x, m_y;
@@ -101,6 +124,18 @@ CK_DLL_QUERY(ssr)
     QUERY->add_mfun(QUERY, ssr_setFreq, "float", "freq");
     QUERY->add_arg(QUERY, "float", "arg");
     QUERY->doc_func(QUERY, "Oscillator frequency [Hz]. ");
+
+    QUERY->add_mfun(QUERY, ssr_addSrc, "float", "addSrc");
+    QUERY->add_arg(QUERY, "float", "arg");
+    QUERY->doc_func(QUERY, "Oscillator frequency again[Hz]. ");
+
+    QUERY->add_mfun(QUERY, ssr_mvSrc, "float", "mvSrc");
+    QUERY->add_arg(QUERY, "float", "arg");
+    QUERY->doc_func(QUERY, "Oscillator frequency again[Hz]. ");
+
+    QUERY->add_mfun(QUERY, ssr_mvSrcV, "float", "mvSrcV");
+    QUERY->add_arg(QUERY, "vec4", "arg");
+    QUERY->doc_func(QUERY, "Oscillator frequency again[Hz]. ");
 
     QUERY->add_mfun(QUERY, ssr_getFreq, "float", "freq");
     QUERY->doc_func(QUERY, "Oscillator frequency [Hz]. ");
@@ -154,6 +189,25 @@ CK_DLL_MFUN(ssr_setFreq)
     RETURN->v_float = bcdata->setFreq(GET_NEXT_FLOAT(ARGS));
 }
 
+CK_DLL_MFUN(ssr_addSrc)
+{
+    ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
+    RETURN->v_float = bcdata->addSrc(GET_NEXT_FLOAT(ARGS));
+}
+
+CK_DLL_MFUN(ssr_mvSrc)
+{
+    ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
+    RETURN->v_float = bcdata->mvSrc(GET_NEXT_FLOAT(ARGS));
+}
+
+//#define GET_NEXT_FLOAT(ptr)    (*((t_CKFLOAT *&)ptr)++)
+CK_DLL_MFUN(ssr_mvSrcV)
+{
+    ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
+    RETURN->v_float = bcdata->mvSrcV(GET_NEXT_VEC4(ARGS));
+}
+
 CK_DLL_MFUN(ssr_getFreq)
 {
     ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
@@ -161,8 +215,7 @@ CK_DLL_MFUN(ssr_getFreq)
 }
 
 CK_DLL_MFUN(ssr_checkConnection)
-{
-    ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
+{    ssr * bcdata = (ssr *) OBJ_MEMBER_INT(SELF, ssr_data_offset);
     RETURN->v_float = bcdata->checkConnection();
 }
 
