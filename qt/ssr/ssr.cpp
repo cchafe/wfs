@@ -92,8 +92,8 @@ public:
     }
 
     t_CKFLOAT mvSrcV(t_CKVEC4 v) {
-        v.x = m_x - 1.0;
-        v.x *= 10000000.0;
+//        v.x = m_x - 1.0;
+//        v.x *= 10000000.0;
         int i = (int)v.w;
         tcp->mvSrc(i, v.x, v.y, v.z);
         return 0.0;

@@ -31,7 +31,6 @@ for (0=>int i; i<100; i++) {
   1.5 -=> x;
   x => src[0].x;
   5*0.3 => float y;
-//  s.checkConnection();
   s.mvSrcV(src[i % nSrcs]);
   150::ms => now;
 }
