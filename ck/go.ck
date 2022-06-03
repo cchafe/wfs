@@ -5,7 +5,7 @@ ssr ck2ssr => dac; // it's also an osc
 ck2ssr.connect();
 ck2ssr.gain(0.000);
 ck2ssr.freq(100.0);
-<<<ck2ssr.freq()>>>;
+// <<<ck2ssr.freq()>>>;
 
 class sndSrc {
   int myID;

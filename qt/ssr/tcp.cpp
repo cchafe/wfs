@@ -3,7 +3,7 @@
 TCP::TCP()
 {
     socket = new QTcpSocket(this);
-    fprintf(stderr,"new QTcpSocket\n");
+//    fprintf(stderr,"new QTcpSocket\n");
 }
 
 TCP::~TCP()
@@ -33,11 +33,12 @@ void TCP::sendToHost(double x, double y)
 
 // Error: Either file name or port name must be specified! (legacy_network/commandparser.cpp:239)
 // so using BinauralRenderer:in_<n>
-
+#define SSR_BR "BinauralRenderer"
+#define SSR_BRS "BrsRenderer"
 void TCP::addSrc(int i, double x, double y)
 {
     QString request("<request><source new=\"true\" name=\"src"+QString::number(i)+
-                    "\" port=\"BinauralRenderer:in_"+QString::number(i)+
+                    "\" port=\""+SSR_BR+":in_"+QString::number(i)+
                     "\" ><position x=\""+QString::number(x)+
                     "\" y=\""+QString::number(y)+
                     "\"/></source></request>" );
@@ -47,7 +48,7 @@ void TCP::addSrc(int i, double x, double y)
     socket->write(ba);
     socket->waitForBytesWritten(1000);
 //    socket->waitForReadyRead(3000);
-    fprintf(stderr,"wrote :%s\n",request.toLocal8Bit().data());
+//    fprintf(stderr,"wrote :%s\n",request.toLocal8Bit().data());
 }
 
 void TCP::mvSrc(int i, double x, double y, double z)
@@ -59,8 +60,10 @@ void TCP::mvSrc(int i, double x, double y, double z)
     QByteArray ba;
     ba.append(request);
     ba.append('\n');
-    socket->write(ba);
-    socket->waitForBytesWritten(1000);
+    if (socket->state()==QTcpSocket::ConnectedState) {
+        socket->write(ba);
+        socket->waitForBytesWritten(1000);
+    }
 //    socket->waitForReadyRead(3000);
 //    fprintf(stderr,"wrote :%s\n",request.toLocal8Bit().data());
 }

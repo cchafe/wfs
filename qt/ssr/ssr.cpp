@@ -34,7 +34,7 @@ public:
     {
         m_fs = fs;
         setFreq(1440);
-        fprintf(stderr,"xxxxxxxxxxxxxxxxxx  %g\n",fs);
+//        fprintf(stderr,"xxxxxxxxxxxxxxxxxx  %g\n",fs);
         m_x = 1;
         m_y = 0;
         tcp = new TCP();
