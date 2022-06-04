@@ -8,18 +8,8 @@
     </reference>
     <source name="src0" model="point" mute="false" volume="0">
       <port>BinauralRenderer:in_0</port>
-      <position x="-1.2" y="-1.8"/>
-      <orientation azimuth="56.3099"/>
-    </source>
-    <source name="src1" model="point" mute="false" volume="0">
-      <port>BinauralRenderer:in_1</port>
-      <position x="-1.1" y="1.9"/>
-      <orientation azimuth="-59.9314"/>
-    </source>
-    <source name="src2" model="point" mute="false" volume="0">
-      <port>BinauralRenderer:in_2</port>
-      <position x="-1" y="2"/>
-      <orientation azimuth="-63.4349"/>
+      <position x="-1.8" y="-3.32"/>
+      <orientation azimuth="61.5348"/>
     </source>
   </scene_setup>
 </asdf>
