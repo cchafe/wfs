@@ -10,9 +10,11 @@ TCP::~TCP()
 {
 }
 
+#define HOST_IP "127.0.0.1"
+
 void TCP::connectToHost()
 {
-    socket->connectToHost(QString("127.0.0.1"),5000);
+    socket->connectToHost(QString(HOST_IP),5000);
 }
 
 void TCP::sendToHost(double x, double y)
