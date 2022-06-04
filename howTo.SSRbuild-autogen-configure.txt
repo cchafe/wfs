@@ -1,0 +1,282 @@
+[cc@fedora ~]$ cd ssr
+[cc@fedora ssr]$ git branch 
+* main
+  master
+[cc@fedora ssr]$ git pull
+Already up to date.
+[cc@fedora ssr]$ ./autogen.sh 
+autoreconf: Entering directory `.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal --force -I autotools/m4
+autoreconf: configure.ac: tracing
+autoreconf: running: libtoolize --copy --force
+libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'autotools/config'.
+libtoolize: copying file 'autotools/config/ltmain.sh'
+libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'autotools/m4'.
+libtoolize: copying file 'autotools/m4/libtool.m4'
+libtoolize: copying file 'autotools/m4/ltoptions.m4'
+libtoolize: copying file 'autotools/m4/ltsugar.m4'
+libtoolize: copying file 'autotools/m4/ltversion.m4'
+libtoolize: copying file 'autotools/m4/lt~obsolete.m4'
+autoreconf: running: /usr/bin/autoconf --force
+autoreconf: running: /usr/bin/autoheader --force
+autoreconf: running: automake --add-missing --copy --force-missing
+configure.ac:97: installing 'autotools/config/compile'
+configure.ac:63: installing 'autotools/config/missing'
+data/MacOSX/Makefile.am: installing 'autotools/config/depcomp'
+autoreconf: Leaving directory `.'
+[cc@fedora ssr]$ ./configure 
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking target system type... x86_64-pc-linux-gnu
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether UID '1000' is supported by ustar format... yes
+checking whether GID '1000' is supported by ustar format... yes
+checking how to create a ustar tar archive... gnutar
+checking for pkg-config... yes
+checking for pkg-config... /usr/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of gcc... gcc3
+checking for g++... g++
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ accepts -g... yes
+checking dependency style of g++... gcc3
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by gcc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking how to convert x86_64-pc-linux-gnu file names to x86_64-pc-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-pc-linux-gnu file names to toolchain format... func_convert_file_noop
+checking for /usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for ar... ar
+checking for archiver @FILE support... @
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for mt... no
+checking if : is a manifest tool... no
+checking how to run the C preprocessor... gcc -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC -DPIC
+checking if gcc PIC flag -fPIC -DPIC works... yes
+checking if gcc static flag -static works... no
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+checking how to run the C++ preprocessor... g++ -E
+checking for ld used by g++... /usr/bin/ld -m elf_x86_64
+checking if the linker (/usr/bin/ld -m elf_x86_64) is GNU ld... yes
+checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking for g++ option to produce PIC... -fPIC -DPIC
+checking if g++ PIC flag -fPIC -DPIC works... yes
+checking if g++ static flag -static works... no
+checking if g++ supports -c -o file.o... yes
+checking if g++ supports -c -o file.o... (cached) yes
+checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking dynamic linker characteristics... (cached) GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether ln -s works... yes
+checking for help2man... yes
+checking for SNDFILE... yes
+checking for FFTW... yes
+checking for JACK... yes
+checking for LIBXML... yes
+checking if g++ supports "-std=c++17"... yes
+checking if g++ implements core/1123... yes
+checking gml/vec.hpp usability... yes
+checking gml/vec.hpp presence... yes
+checking for gml/vec.hpp... yes
+checking whether we can compile MMX code... yes
+checking whether we can compile SSE code... yes
+checking for __SSE__... yes
+checking whether we can compile SSE2 code... yes
+checking for __SSE2__... yes
+checking for QT... yes
+checking GL/glu.h usability... yes
+checking GL/glu.h presence... yes
+checking for GL/glu.h... yes
+checking for library containing gluNewQuadric... -lGLU
+checking for library containing glSelectBuffer... -lGL
+checking if we have to add -fPIC to make Qt happy... no
+checking asio.hpp usability... yes
+checking asio.hpp presence... yes
+checking for asio.hpp... yes
+checking for asio.hpp... (cached) yes
+checking websocketpp/server.hpp usability... yes
+checking websocketpp/server.hpp presence... yes
+checking for websocketpp/server.hpp... yes
+checking rapidjson/document.h usability... yes
+checking rapidjson/document.h presence... yes
+checking for rapidjson/document.h... yes
+checking for asio.hpp... (cached) yes
+checking for FMT... no
+configure: WARNING: --enable-fudi-interface (FUDI interface (needs Asio and {fmt})) requested but not available!
+checking for non-default libecasoundc include directory... /usr/local/include/libecasoundc
+checking ecasoundc.h usability... yes
+checking ecasoundc.h presence... yes
+checking for ecasoundc.h... yes
+checking eca-control-interface.h usability... yes
+checking eca-control-interface.h presence... yes
+checking for eca-control-interface.h... yes
+checking for library containing eci_init... -lecasoundc
+checking Ecasound library support (see above)... yes
+checking for ecasound... yes
+checking mysofa.h usability... yes
+checking mysofa.h presence... yes
+checking for mysofa.h... yes
+checking for library containing mysofa_open... -lmysofa
+checking various header files for Polhemus Fastrak/Patriot tracker support... see below
+checking termios.h usability... yes
+checking termios.h presence... yes
+checking for termios.h... yes
+checking for unistd.h... (cached) yes
+checking fcntl.h usability... yes
+checking fcntl.h presence... yes
+checking for fcntl.h... yes
+checking poll.h usability... yes
+checking poll.h presence... yes
+checking for poll.h... yes
+checking Polhemus Fastrak/Patriot support... yes
+checking various header files for Razor AHRS tracker support... see below
+checking for termios.h... (cached) yes
+checking for unistd.h... (cached) yes
+checking for fcntl.h... (cached) yes
+checking for poll.h... (cached) yes
+checking Razor AHRS support... yes
+checking various header files for VRPN tracker support... see below
+checking vrpn_Tracker.h usability... no
+checking vrpn_Tracker.h presence... no
+checking for vrpn_Tracker.h... no
+checking for library containing q_from_axis_angle... no
+checking for library containing vrpn_MAGIC... no
+checking VRPN tracker support... no
+configure: WARNING: --enable-vrpn (VRPN tracker support) requested but not available!
+checking various header files for InterSense tracker support... see below
+checking isense.h usability... no
+checking isense.h presence... no
+checking for isense.h... no
+checking types.h usability... no
+checking types.h presence... no
+checking for types.h... no
+configure: WARNING: --enable-intersense (InterSense tracker support) requested but not available!
+checking for unistd.h... (cached) yes
+checking for library containing isatty... none required
+checking for yarnpkg... no
+checking for yarn... no
+configure: WARNING: --enable-browser-gui (creation of HTML/JavaScript files for browser GUI) requested but not available!
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating src/Makefile
+config.status: creating man/Makefile
+config.status: creating browser-gui/Makefile
+config.status: creating tests/Makefile
+config.status: creating data/Makefile
+config.status: creating data/MacOSX/Makefile
+config.status: creating data/MacOSX/Info.plist
+config.status: creating data/MacOSX/DMG-Layout.applescript
+config.status: creating src/config.h
+config.status: src/config.h is unchanged
+config.status: executing depfiles commands
+config.status: executing libtool commands
+
+SSR_executables: ssr-binaural ssr-brs ssr-wfs ssr-vbap ssr-aap ssr-generic ssr-dca
+
+CXX: g++
+
+CFLAGS: -g -O2
+
+CXXFLAGS: -g -std=c++17 -pthread -O3
+
+CPPFLAGS: -I/home/cc/ssr/gml/include -DASIO_STANDALONE -DASIO_STANDALONE -I/home/cc/ssr/rapidjson/include -DASIO_STANDALONE -I/usr/local/include/libecasoundc
+
+PKG_FLAGS: -I/usr/include/opus -I/usr/include/libxml2 -I/usr/include/qt5/QtCore -I/usr/include/qt5 -I/usr/include/qt5/QtGui -DQT_OPENGL_LIB -I/usr/include/qt5/QtOpenGL -DQT_WIDGETS_LIB -I/usr/include/qt5/QtWidgets -DQT_GUI_LIB -DQT_CORE_LIB
+
+OPT_FLAGS: -fomit-frame-pointer -ffast-math -funroll-loops -march=k8 -mmmx -msse -mfpmath=sse -msse2 -mfpmath=sse
+
+WARNING_FLAGS: -Wno-register -Wall -Wextra -pedantic -Wno-long-long -Winit-self -Wcast-align -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -Wnon-virtual-dtor -Wwrite-strings -Wstrict-overflow=0
+
+DEBUGGING_FLAGS: -DNDEBUG
+
+LIBS: -lmysofa -lecasoundc -lGL -lGLU -lsndfile -lfftw3f -ljack -lxml2 -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core
+
+LDFLAGS:
+
+YARN:
+
+
+
+         ___     
+        /  ___   
+    ___/  /  ___ 
+      ___/  /     SSR (SoundScape Renderer) 0.5.0-222-g9fbbb77:
+           /     
+                 
+|
+| Build with tracker support:
+|    InterSense .......................... : no
+|    Polhemus Fastrak/Patriot ............ : yes
+|    Razor AHRS .......................... : yes
+|    VRPN ................................ : no
+|
+| Ecasound/SOFA support .................. : yes/yes
+| Network: legacy/WebSocket/FUDI ......... : yes/yes/no
+| Qt GUI/Browser GUI ..................... : yes/no
+|
+| Enable debugging/optimization .......... : no/yes
+| Install prefix ......................... : /usr/local
+|
+
+If everything looks OK, continue with "make" and "make install".
+
+[cc@fedora ssr]$ 
+
